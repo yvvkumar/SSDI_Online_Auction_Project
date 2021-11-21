@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>GOA</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+
+<body>
+    <header class="banner">
+        <div>
+            <div class="logo">
+                <a href="/">
+                    <img class="logoImg" src="/img/logo1.png" alt="GOA logo" />
+                </a>
+            </div>
+            <div class="banner_nav">
+                <ul>
+                    <%if(!user){%>
+                        <li><a href='/users/login'>Login</a></li>
+                        <li><a href='/users/new'>Sign Up</a></li>
+                    <%}else{%>
+                        <li><a href='/events/new'> Start a new event</a></li>
+                        <li><a href='/users/profile'>Profile</a></li>
+                        <li><a href='/users/logout'>Logout</a></li>
+                    <%}%>
+                </ul>
+            </div>
+        </div>
+        <br>
+        <div class="second">
+            <div class="nav">
+                <ul>
+                    <li><a href="/events">Events</a></li>
+                </ul>
+            </div>
+            <div class="welcome">
+                <%if(firstName){%>
+                Welcome <%=firstName%>!
+                <%}%>
+            </div>
+        </div>
+        <div>
+        <% if(errorMessages.length > 0) {%>
+            <% errorMessages.forEach(message=>{%>
+                <div class='error'>
+                    <%=message%>
+                </div>
+            <%});%>
+        <%}%>
+
+        <% if(successMessages.length > 0) {%>
+            <% successMessages.forEach(message=>{%>
+                <div class='success'>
+                    <%=message%>
+                </div>
+            <%});%>
+        <%}%>
+        </div>
+    </header>
+
+    

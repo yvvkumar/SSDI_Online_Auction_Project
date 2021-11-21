@@ -1,0 +1,34 @@
+
+<%- include('../partials/header.ejs')%>
+<main>
+    <div>
+    <h2><%=user.firstName%>'s Events</h2>
+
+    <%if(events.length){%>
+    <div class="table">
+        <table class="profile">
+            <tr>
+                <th>Event</th>
+                <th>Category</th>
+                <th>Actions</th>
+            </tr> 
+        <%events.forEach(event=>{%>
+            <tr>
+                <td><a href = '/events/<%=event.id%>'><%=event.title%></a></td>
+                <td><%=event.category%></td>
+                <td>
+                    <form>
+                        <button class="submitBtn" type="submit" formmethod="GET" formaction="/events/<%= event.id%>/edit">Edit</button>
+                        <button class="submitBtn" type="submit" formmethod="POST" formaction="/events/<%= event.id%>?_method=DELETE">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        <%});%>
+        </table>
+    </div>
+    <%}else{%>
+        <p> You are currently hosting no events!</p>
+    <%}%>
+</div>
+</main>
+<%- include('../partials/footer.ejs')%>

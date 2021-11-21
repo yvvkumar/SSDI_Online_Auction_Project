@@ -1,0 +1,2 @@
+D:\UNCC\SSDI_Project\obj\Debug\SSDI_Group_Project.njsprojAssemblyReference.cache
+D:\UNCC\SSDI_Project\bin\Microsoft.NodejsTools.WebRole.dll

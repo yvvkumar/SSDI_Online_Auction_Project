@@ -1,0 +1,187 @@
+@charset "UTF-8";
+
+body{
+    margin:0;
+    padding:0 0 0 0;
+}
+
+header, footer{
+    background-color: #4C5C37;
+    color: white;
+    position:fixed;
+    width: 100%; 
+    padding: 10px 0; 
+}
+
+/* CSS properties of header related elements*/
+header{
+    height:110px;
+    padding-top: 10px;
+    text-align: right;
+    top:0;
+}
+
+.logoImg{
+    float: left;   
+    display: inline;
+    padding-inline: 10px;
+    width: 90px;
+    height: 90px;
+    background:transparent;
+}
+
+.banner_nav{
+    padding-top: 20px;
+    padding-right: 20px;
+}
+
+.banner_nav li{
+    display: inline;
+    text-align: right;
+    padding: 10px;
+}
+
+.banner_nav li a{
+    color:white;
+}
+
+.banner_nav li a:hover{
+    color:papayawhip;
+}
+
+.nav{
+    background-color: #A9BD7E;
+    height:25px;
+    text-align: left;
+}
+
+.nav li{
+    display: inline;
+    padding: 60px;
+    
+}
+
+.welcome{
+    color: black;
+    background-color: #A9BD7E;
+    padding-right: 60px;
+    padding-bottom: 5px;
+}
+
+/* CSS properties of footer related elements*/
+footer{
+    height:50px; 
+    padding-top: 8px;
+    text-align: center;
+    bottom:0;
+}
+
+footer li{
+    display: inline;
+    padding: 30px;
+}
+
+footer li a{
+    color:white;
+}
+
+/* CSS properties of main content related elements*/
+main{
+    padding-top: 180px;
+    padding-left: 70px;
+    padding-right: 70px;
+    padding-bottom: 105px;
+    width:auto;
+    margin: 0 auto;
+    width: 80%;
+}
+
+/* CSS properties of common elements*/
+li{
+    line-height: 150%;
+}
+
+a{
+    color: black;
+    text-decoration: none;
+}
+
+a:hover{
+    color:papayawhip;
+}
+
+/* CSS properties of form elements*/
+.formElement{
+    padding-top:20px;
+
+}
+
+label {
+    display: inline-block;
+    width:100px;
+    text-align: left;
+}
+
+input{
+    width:50%;
+}
+
+input.time,.category,.submitBtn{
+    width: 100px;
+}
+
+.fixed-width{
+  width: 300px;
+}
+
+/* CSS properties of Connection page elements*/
+.itemImg{
+    height: 250px;
+    width: auto; 
+}
+
+.editBtn{
+    display:inline-flex;
+}
+
+/* CSS properties of Connections page elements*/
+.connectionsList{
+    list-style-type:none;
+}
+
+.connectionsList a:hover{
+    color: blue
+}
+
+/* CSS properties of Profile page elements*/
+.table{
+    overflow: auto;
+}
+
+.profile, .profile th, .profile td{
+    padding: 10px;
+    border: 1px solid black;
+    border-collapse: collapse; 
+}
+
+td a:hover{
+    color:blue;
+}
+ 
+
+/* CSS properties of notifications*/
+.success {
+  background: rgba(108, 192, 112, 0.7);
+  color: #fff;
+  width: 100%;
+  text-align: center;
+  padding: 5px 5px;
+}
+
+.error {
+  background: rgba(255, 102, 51, 0.7);
+  color: #fff;
+  width: 100%;
+  text-align: center;
+  padding: 5px 5px;
+}

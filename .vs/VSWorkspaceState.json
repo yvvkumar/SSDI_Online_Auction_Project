@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\public",
+    "\\routes",
+    "\\views",
+    "\\views\\events",
+    "\\views\\partials",
+    "\\views\\user"
+  ],
+  "SelectedNode": "\\app.js",
+  "PreviewInSolutionExplorer": false
+}

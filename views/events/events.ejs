@@ -1,0 +1,36 @@
+<%- include('../partials/header.ejs')%>
+
+<%function groupBy(events, property) {  %>
+  <%return events.reduce(function (accumulator, object) { %>
+    <%const key = object[property]; %>
+        <%if (!accumulator[key]) { %>
+          <%accumulator[key] = []; %>
+        <%}%>
+    <%accumulator[key].push(object);%>
+    <%return accumulator;%>
+  <%}, {});%>
+<%}%>
+
+<%const allevents = groupBy(events, 'category');%>
+<%const categoryName = Object.keys(allevents);%> 
+<%const categoryProperties = Object.values(allevents);%>
+
+    <main class="events_list">
+        <% if(events.length === 0){ %>
+            <p>There is no event to display!</p>
+        <% } else { %>
+            <%for (var j=0; j< categoryName.length; j++){%>
+                <section>
+                    <div>
+                        <h4><%= categoryName[j]%></h4>
+                        <ul>
+                            <%categoryProperties[j].forEach(event=> {%>
+                                <li class="connectionsList"><a href="/events/<%= event._id%>"><%=event.title%></a></li>
+                            <%});%>            
+                        </ul>
+                    </div>
+                </section>
+            <%}
+        }%>
+    </main>
+<%- include('../partials/footer.ejs')%>
