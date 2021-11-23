@@ -9,6 +9,7 @@ const eventSchema = new Schema({
     startTime: {type:String, required: [true,'start time is required']},
     endTime: {type:String, required: [true,'end time is required']},
     address:{type:String, required: [true,'address is required']},
+    city:{type:String, required: [true,'city is required']},
     details:{type:String, required: [true,'details is required'], minLength: [10,'Details should be atleast of 10 characters']},
     imageURL: { type: String, required: [true, 'image URL is required'] },    
 },
