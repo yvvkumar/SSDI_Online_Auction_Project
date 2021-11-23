@@ -1,4 +1,5 @@
 const Event = require('../models/event');
+const User = require('../models/user');
 
 //check if a user is a guest
 exports.isGuest = (req,res,next)=>{
@@ -27,6 +28,24 @@ exports.isHost = (req,res,next)=>{
     .then(event=>{
         if(event){
             if(event.host == req.session.user)
+                return next();
+            else{
+                let err = new Error('Unauthorized to access this resource');
+                err.status = 401;
+                return next(err);
+            }
+        }
+    })
+    .catch(err=>next(err));
+}
+
+//check if a user is an admin
+exports.isAdmin = (req,res,next)=>{
+    let id = req.session.user;
+    User.findById(id)
+    .then(user=>{
+        if(user){
+            if(user.role === true)
                 return next();
             else{
                 let err = new Error('Unauthorized to access this resource');

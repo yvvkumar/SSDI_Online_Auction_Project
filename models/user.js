@@ -6,6 +6,7 @@ const userSchema = new Schema({
     lastName: {type: String, required: [true, 'Last name is required!']},
     email: { type: String, required: [true, 'Email address is required!'], unique: [true, 'This email address has been used!'] },
     password: { type: String, required: [true, 'Password is required!'], minlength:[8,'Password should be atleast of 8 characters'] },
+    role:{ type: Boolean, required: [true, 'Role is required!']},
 });
 
 userSchema.pre('save', function(next){
