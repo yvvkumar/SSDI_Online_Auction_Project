@@ -3,7 +3,7 @@
         <div>
             <h2>User Dashboard</h2>
 
-            <%if(users.length){%>
+            <%if(users.length>1){%>
                 <div class="table">
                     <table class="profile">
                         <tr>
@@ -15,7 +15,7 @@
                             <tr>
                                 <td><%=user.firstName%> <%=user.lastName%></td>
                                 <td>
-                                    <%if(req.session.userRole === 'SuperAdmin'){
+                                    <%if(userRole === 'SuperAdmin'){
                                         if(user.role==='Admin'){%>
                                             <form>
                                                 <button class="submitBtn" type="submit" formmethod="POST" formaction="/users/<%= user.id%>/removeAdmin">Remove Admin</button>
@@ -25,11 +25,11 @@
                                                 <button class="submitBtn" type="submit" formmethod="POST" formaction="/users/<%= user.id%>/makeAdmin">Make Admin</button>
                                                 <button class="submitBtn" type="submit" formmethod="POST" formaction="/users/<%= user.id%>/removeUser">Remove User</button>
                                             </form>
-                                    <%}else{%>
+                                    <%}}else{%>
                                         <form>
                                             <button class="submitBtn" type="submit" formmethod="POST" formaction="/users/<%= user.id%>/removeUser">Remove User</button>
                                         </form>
-                                    <%}}%>
+                                    <%}%>
                                 </td>
                             </tr>
                         <%}});%>
@@ -40,4 +40,4 @@
             <%}%>
         </div>
     </main>
-    <%- include('../partials/footer.ejs')%>
+<%- include('../partials/footer.ejs')%>

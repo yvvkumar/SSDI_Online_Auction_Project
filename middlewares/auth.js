@@ -45,7 +45,7 @@ exports.isAdmin = (req,res,next)=>{
     User.findById(id)
     .then(user=>{
         if(user){
-            if(user.role === true)
+            if(user.role === 'Admin' || user.role === 'SuperAdmin')
                 return next();
             else{
                 let err = new Error('Unauthorized to access this resource');
