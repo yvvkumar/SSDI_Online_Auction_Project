@@ -14,6 +14,7 @@
                             if(user.role !== 'SuperAdmin'){%>
                             <tr>
                                 <td><%=user.firstName%> <%=user.lastName%></td>
+                                <td><%=user.role%></td>
                                 <td>
                                     <%if(userRole === 'SuperAdmin'){
                                         if(user.role==='Admin'){%>

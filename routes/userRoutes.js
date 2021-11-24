@@ -28,4 +28,7 @@ router.get('/logout', isLoggedIn, controller.logout);
 //POST /users/:id/makeAdmin: makeAdmin
 router.post('/:id/makeAdmin',controller.makeAdmin);
 
+//POST /users/:id/removeeAdmin: removeAdmin
+router.post('/:id/removeAdmin',controller.removeAdmin);
+
 module.exports = router;
