@@ -29,7 +29,22 @@ header{
     height: 90px;
     background:transparent;
 }
-
+.rsvp_button{
+	background-color: rgb(56, 54, 54);
+	border: none;
+	color: rgb(248, 244, 244);
+	padding: 10px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
+	margin: 3px 2px;
+	cursor: pointer;
+	border-radius: 3px;
+	font-family: "Comic Sans MS", "Comic Sans", cursive;
+	box-sizing: border-box;
+	
+  }
 .banner_nav{
     padding-top: 20px;
     padding-right: 20px;
