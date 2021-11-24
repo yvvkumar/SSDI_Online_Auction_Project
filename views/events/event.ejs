@@ -11,12 +11,12 @@
             $("#bidding").validate({
             rules: {
            
-            bid_amount: {
-            required: true,
-            number: true,
-            min: 1
-            }
-            }
+                bid_amount: {
+                    required: true,
+                    number: true,
+                    min: 1
+                    }
+                }
             });
             });
         </script>
@@ -57,7 +57,7 @@
             <form id="bidding">
                 <div class="formElement">
                     <label for="bid_amount">Bid Amount</label>
-                    <input type="text" id="bid_amount" name="bid_amount" class = "fixed-width" min="1" required>
+                    <input type="text" id="bid_amount" name="bid_amount" class = "fixed-width" required>
                 </div>                    
                 <div >
                     <button class="submitBtn" type="submit" formmethod="post" formaction="/events/<%= event.id%>/bid" >Save Bid Amount</button>
