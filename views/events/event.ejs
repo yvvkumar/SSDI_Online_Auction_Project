@@ -23,8 +23,26 @@
                     <button class="editBtn" type="submit" formmethod="GET" formaction="/events/<%= event.id%>/edit">Edit</button>
                     <button class="editBtn" type="submit" formmethod="POST" formaction="/events/<%= event.id%>?_method=DELETE">Delete</button>
                 </form>
-            <%}%>
+            <%}else {%>
+                <form>
+                    
+                    <button class="editBtn" type="text" formmethod="POST" formaction="/events/<%= event.id%>??rsvp=yes">Yes</button>
+                 
+                </form>
+    
+            <%}%>            
                 
+        </div>
+        <div class="bidding">
+            <form>
+                <div class="formElement">
+                    <label for="bid_amount">Bid Amount</label>
+                    <input type="text" id="bid_amount" name="bid_amount" class = "fixed-width"  value="" required>
+                </div>                    
+                <div >
+                    <button class="submitBtn" type="submit" formmethod="post" formaction="/events/<%= event.id%>/bid" >Save Bid Amount</button>
+                </div>        
+            </form>
         </div>
     </main>
 <%- include('../partials/footer.ejs')%>

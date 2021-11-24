@@ -16,6 +16,9 @@ router.get('/new',isLoggedIn,controller.new);
 //POST /events: create a new event
 router.post('/',isLoggedIn,controller.create);
 
+//POST /events: create a new event
+router.post('/:id/bid',controller.bid);
+
 //GET /events/:id: send details of event identified by id
 router.get('/:id',validateId,controller.show);
 

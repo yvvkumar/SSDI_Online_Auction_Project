@@ -1,12 +1,13 @@
 //import
 const model = require('../models/event');
+const bid_Schema = require('../models/bid');
+
 
 // controller functions
 exports.index = (req,res) => {
     model.find()
     .then(events=>res.render('./events/events',{events}))
-    .catch(err=>next(err));   
-    
+    .catch(err=>next(err));       
 };
 
 exports.new = (req,res) => {
@@ -97,5 +98,23 @@ exports.delete = (req,res,next) => {
         }
     })
     .catch(err => next(err));
+};
+exports.bid = (req,res,next) => {
+    let bid = new bid_Schema(req.body);  
+    bid.bidder = req.session.user;
+    bid.eventid = req.params.id;
+    bid.bidAmount = req.body.bid_amount;
+    bid.save() 
+    .then(()=>{
+        req.flash('success', 'Bid Amount has been successfully saved');
+        res.redirect('/events');
+    })
+    .catch(err=>{
+        if(err.name==='ValidationError'){
+            req.flash('error', err.message);
+            return res.redirect('back');
+        }
+        next(err);
+    });
 };
 
