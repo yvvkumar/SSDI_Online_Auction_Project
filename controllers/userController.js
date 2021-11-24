@@ -84,5 +84,25 @@ exports.logout = (req, res, next)=>{
        else{res.redirect('/users/login');  
        }
     });
-   
+ };
+
+ exports.makeAdmin = (req,res,next)=>{
+    let id = req.params.id;
+    model.findById(id)
+    .then(user=>{
+        if(user){
+            user.role='Admin';
+            model.findByIdAndUpdate(id,user,{useFindAndModify: false, runValidators: true})
+            .then(newuser=>{    
+                req.flash('success', 'User role has been successfully updated!');
+                res.redirect('/users/dashboard');
+            })
+        }else{
+            let err = new Error('Cannot find user with id '+ id);
+            err.status = 404;
+            next(err);
+        }
+        
+    })
+    .catch()
  };
