@@ -20,7 +20,7 @@ let hostURL ='localhost';
 app.set('view engine','ejs');
 
 //connect to database
-mongoose.connect('mongodb://localhost:27017/goa',
+mongoose.connect('mongodb://localhost:27017/auction',
                 {useNewUrlParser: true, useUnifiedTopology: true }) //, useCreateIndex: true
 .then(()=>{
     //start the server
