@@ -103,7 +103,7 @@ exports.logout = (req, res, next)=>{
             next(err);
         }
     })
-    .catch(err=>next(err))
+    .catch(err=>next(err));
  };
 
  exports.removeAdmin = (req,res,next)=>{
@@ -123,5 +123,21 @@ exports.logout = (req, res, next)=>{
             next(err);
         }
     })
-    .catch(err=>next(err))
+    .catch(err=>next(err));
+ };
+
+ exports.removeUser = (req,res,next)=>{
+    let id = req.params.id;
+    model.findByIdAndDelete(id,{useFindAndModify: false})
+    .then(user=>{
+        if(user){
+            req.flash('success', 'User has been successfully removed!');
+            res.redirect('/users/dashboard');
+        }else{
+            let err = new Error('Cannot find user with id '+ id);
+            err.status = 404;
+            next(err);
+        }
+    })
+    .catch(err => next(err));
  };
