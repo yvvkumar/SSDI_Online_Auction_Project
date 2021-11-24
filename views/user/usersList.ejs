@@ -8,12 +8,14 @@
                     <table class="profile">
                         <tr>
                             <th>Users</th>
+                            <th>Role</th>
                             <th>Actions</th>
                         </tr>
                         <%users.forEach(user=>{
                             if(user.role !== 'SuperAdmin'){%>
                             <tr>
                                 <td><%=user.firstName%> <%=user.lastName%></td>
+                                <td><%=user.role%></td>
                                 <td>
                                     <%if(userRole === 'SuperAdmin'){
                                         if(user.role==='Admin'){%>
