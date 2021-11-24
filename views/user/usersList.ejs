@@ -20,10 +20,15 @@
                                             <form>
                                                 <button class="submitBtn" type="submit" formmethod="POST" formaction="/users/<%= user.id%>/removeAdmin">Remove Admin</button>
                                             </form>
-                                        <%}else{ 
+                                        <%}else{%> 
                                             <form>
                                                 <button class="submitBtn" type="submit" formmethod="POST" formaction="/users/<%= user.id%>/makeAdmin">Make Admin</button>
+                                                <button class="submitBtn" type="submit" formmethod="POST" formaction="/users/<%= user.id%>/removeUser">Remove User</button>
                                             </form>
+                                    <%}else{%>
+                                        <form>
+                                            <button class="submitBtn" type="submit" formmethod="POST" formaction="/users/<%= user.id%>/removeUser">Remove User</button>
+                                        </form>
                                     <%}}%>
                                 </td>
                             </tr>
