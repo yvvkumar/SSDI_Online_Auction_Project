@@ -45,8 +45,12 @@ exports.login = (req, res, next)=>{
                 if(result) {
                     req.session.user = user._id;
                     req.session.firstName = user.firstName;
+                    req.session.userRole = user.role;
                     req.flash('success', 'You have successfully logged in');
-                    res.redirect('/users/profile');
+                    if(user.role === 'Admin' || user.role === 'SuperAdmin')
+                        res.redirect('/users/dashboard');
+                    else
+                        res.redirect('/users/profile');
                 } else {
                     req.flash('error', 'Wrong password!');      
                     res.redirect('/users/login');
@@ -67,6 +71,11 @@ exports.profile = (req, res, next)=>{
     .catch(err=>next(err));
 };
 
+exports.dashboard = (req, res, next)=>{
+    model.find()
+    .then(users=>res.render('./user/usersList', {users}))
+    .catch(err=>next(err));
+};
 
 exports.logout = (req, res, next)=>{
     req.session.destroy(err=>{

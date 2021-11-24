@@ -20,7 +20,7 @@ let hostURL ='localhost';
 app.set('view engine','ejs');
 
 //connect to database
-mongoose.connect('mongodb://localhost:27017/goa',
+mongoose.connect('mongodb://localhost:27017/auction',
                 {useNewUrlParser: true, useUnifiedTopology: true }) //, useCreateIndex: true
 .then(()=>{
     //start the server
@@ -45,6 +45,7 @@ app.use(flash());
 app.use((req, res, next) => {
     res.locals.user = req.session.user||null;
     res.locals.firstName = req.session.firstName||null;
+    res.locals.userRole = req.session.userRole||null;
     res.locals.errorMessages = req.flash('error');
     res.locals.successMessages = req.flash('success');
     next();
