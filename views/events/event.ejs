@@ -13,6 +13,8 @@
                     <br>
                     Location: <%= event.address%>
                     <br>
+                    City: <%= event.city%>
+                    <br>
                     Details: <%= event.details%>
                 </p>       
             </div>
@@ -22,6 +24,7 @@
                     <button class="editBtn" type="submit" formmethod="POST" formaction="/events/<%= event.id%>?_method=DELETE">Delete</button>
                 </form>
             <%}%>
+                
         </div>
     </main>
 <%- include('../partials/footer.ejs')%>
