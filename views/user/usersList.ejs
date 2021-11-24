@@ -1,0 +1,38 @@
+<%- include('../partials/header.ejs')%>
+    <main>
+        <div>
+            <h2>User Dashboard</h2>
+
+            <%if(users.length){%>
+                <div class="table">
+                    <table class="profile">
+                        <tr>
+                            <th>Users</th>
+                            <th>Actions</th>
+                        </tr>
+                        <%users.forEach(user=>{
+                            if(user.role !== 'SuperAdmin'){%>
+                            <tr>
+                                <td><%=user.firstName%> <%=user.lastName%></td>
+                                <td>
+                                    <%if(req.session.userRole === 'SuperAdmin'){
+                                        if(user.role==='Admin'){%>
+                                            <form>
+                                                <button class="submitBtn" type="submit" formmethod="POST" formaction="/users/<%= user.id%>/removeAdmin">Remove Admin</button>
+                                            </form>
+                                        <%}else{ 
+                                            <form>
+                                                <button class="submitBtn" type="submit" formmethod="POST" formaction="/users/<%= user.id%>/makeAdmin">Make Admin</button>
+                                            </form>
+                                    <%}}%>
+                                </td>
+                            </tr>
+                        <%}});%>
+                    </table>
+                </div>
+            <%}else{%>
+                <p> You currently have no users!</p>
+            <%}%>
+        </div>
+    </main>
+    <%- include('../partials/footer.ejs')%>
