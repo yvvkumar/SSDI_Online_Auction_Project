@@ -1,25 +1,29 @@
-<%- include('../partials/header.ejs')%>
-
+<%- include('../partials/header.ejs')%>   
     <main>
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+       
+      <!--   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
 
         <script>   
-
-            $(document).ready(function() {
+            amount = $("#baseAmount").val();
+            $(document).ready(function() {          
+                
             $("#bidding").validate({
             rules: {
            
                 bid_amount: {
-                    required: true,
-                    number: true,
-                    min: 1
-                    }
-                }
+                    required: true, 
+                    number: true,                   
+                    min: {
+                        parsetoInt(amount);
+                        }
+                     },
+                }           
+                
             });
             });
-        </script>
+        </script> -->
+
         <div class="eventDesc">
             <h3><%= event.title%></h3>
             <br>
@@ -36,7 +40,9 @@
                     City: <%= event.city%>
                     <br>
                     Details: <%= event.details%>
-                </p>       
+                    <br>
+                    BaseAmount: <%= event.baseAmount%>
+                </p>                
             </div>
             <%if(user== event.host._id){%>
                 <form>
@@ -50,10 +56,8 @@
                  
                 </form>
     
-            <%}%>            
-                
-        </div>
-        <div>
+            <%}%>  
+
             <form id="bidding">
                 <div class="formElement">
                     <label for="bid_amount">Bid Amount</label>
@@ -62,7 +66,11 @@
                 <div >
                     <button class="submitBtn" type="submit" formmethod="post" formaction="/events/<%= event.id%>/bid" >Save Bid Amount</button>
                 </div>        
-            </form>
+            </form>          
+                
         </div>
+        
+          
+        
     </main>
 <%- include('../partials/footer.ejs')%>

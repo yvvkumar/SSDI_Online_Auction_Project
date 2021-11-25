@@ -12,6 +12,7 @@ const eventSchema = new Schema({
     city:{type:String, required: [true,'city is required']},
     details:{type:String, required: [true,'details is required'], minLength: [10,'Details should be atleast of 10 characters']},
     imageURL: { type: String, required: [true, 'image URL is required'] },
+    baseAmount:{type:Number, required: [true,'bid amount is required']},
     rsvp : [{user : {type: Schema.Types.ObjectId, ref:'User'},rsvpResponse : {type: String, required: [true, 'rsvp response required']}}]    
 },
 {timestamps:true}

@@ -1,12 +1,30 @@
 <%- include('../partials/header.ejs')%>
-    <main>
+    <main>   
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+
+        <script>   
+
+            $(document).ready(function() {
+            $("#newEvent").validate({
+            rules: {
+           
+                baseAmount: {
+                    required: true,
+                    number: true,
+                    min: 1
+                    }
+                }
+            });
+            });
+        </script>     
         <section>
             
                 <h4>
                     Create a new event!
                 </h4>
                 <div class="new_event">
-                    <form action="/events" method = 'POST'>
+                    <form id = "newEvent" action="/events" method = 'POST'>
                         <div class="formElement">
                             <label for="category">Category</label>
                             <input type="text" id="category" name="category" placeholder="Enter event category" required>
@@ -43,6 +61,10 @@
                         <div class="formElement">
                             <label for="imageURL">Image URL</label>
                             <input type="text" id="imageURL" name="imageURL" placeholder="Enter image URL" required>
+                        </div>
+                        <div class="formElement">
+                            <label for="baseAmount">Base Amount</label>
+                            <input type="text" id="baseAmount" name="baseAmount" placeholder="Enter Base Amount" required>
                         </div>
                         <div class="formElement">
                             <input class="submitBtn" type="submit" value="Create Event"/>
