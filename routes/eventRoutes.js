@@ -10,6 +10,9 @@ const router = express.Router();
 //GET /events: send all the events to the user
 router.get('/',controller.index);
 
+//GET /events: send all the events of the loaclity to the user
+router.get('/localEvents',controller.localEvents);
+
 //GET /events/new: send html form for creating a new event
 router.get('/new',isLoggedIn,controller.new);
 

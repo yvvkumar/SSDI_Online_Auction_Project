@@ -1,8 +1,5 @@
 <%- include('../partials/header.ejs')%>   
     <main>
-       
-     
-
         <div class="eventDesc">
             <h3><%= event.title%></h3>
             <br>
@@ -23,7 +20,7 @@
                     BaseAmount: <%= event.baseAmount%>
                 </p>                
             </div>
-            <%if(user== event.host._id){%>
+            <%if(userId== event.host._id){%>
                 <form>
                     <button class="editBtn" type="submit" formmethod="GET" formaction="/events/<%= event.id%>/edit">Edit</button>
                     <button class="editBtn" type="submit" formmethod="POST" formaction="/events/<%= event.id%>?_method=DELETE">Delete</button>
@@ -40,13 +37,7 @@
                     </div>        
                 </form> 
     
-            <%}%>  
-
-                    
-                
+            <%}%>         
         </div>
-        
-          
-        
     </main>
 <%- include('../partials/footer.ejs')%>

@@ -17,15 +17,14 @@
             </div>
             <div class="banner_nav">
                 <ul>
-                    <%if(!user){%>
+                    <%if(!userId){%>
                         <li><a href='/users/login'>Login</a></li>
                         <li><a href='/users/new'>Sign Up</a></li>
-                    <%}else if(userRole==='SuperAdmin' || userRole==='Admin'){%>
-                        <li><a href='/users/new'>Create User</a></li>
-                        <li><a href='/users/dashboard'>Dashboard</a></li>
-                        <li><a href='/users/logout'>Logout</a></li>
                     <%}else{%>
                         <li><a href='/events/new'> Start a new event</a></li>
+                        <%if(userRole==='SuperAdmin' || userRole==='Admin'){%>
+                            <li><a href='/users/dashboard'>Dashboard</a></li>
+                        <%}%>
                         <li><a href='/users/profile'>Profile</a></li>
                         <li><a href='/users/logout'>Logout</a></li>
                     <%}%>
@@ -36,7 +35,10 @@
         <div class="second">
             <div class="nav">
                 <ul>
-                    <li><a href="/events">Events</a></li>
+                    <li><a href="/events">All Events</a></li>
+                    <%if(userId){%>
+                        <li><a href='/events/localEvents'>Local Events</a></li>
+                    <%}%>
                 </ul>
             </div>
             <div class="welcome">

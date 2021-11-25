@@ -4,11 +4,27 @@ const bid_Schema = require('../models/bid');
 
 
 // controller functions
-exports.index = (req,res) => {
+exports.index = (req,res,next) => {
     model.find()
     .then(events=>res.render('./events/events',{events}))
     .catch(err=>next(err));       
 };
+
+exports.localEvents = (req,res,next) => {
+    let userCity= req.session.city;
+    model.find()
+    .then(localEvents=>{
+        let events = [] ;
+        localEvents.forEach(event=>{
+            if(event.city === userCity){
+                events.push(event);
+            }
+        });
+        res.render('./events/events',{events})
+    })
+    .catch(err=>next(err));       
+};
+
 
 exports.new = (req,res) => {
     res.render('./events/newEvent');
@@ -16,7 +32,7 @@ exports.new = (req,res) => {
 
 exports.create = (req,res,next) => {
     let event = new model(req.body);
-    event.host = req.session.user;
+    event.host = req.session.userId;
     event.save() 
     .then(()=>{
         req.flash('success', 'Event has been successfully created!');
@@ -102,7 +118,7 @@ exports.delete = (req,res,next) => {
 exports.bid = (req,res,next) => {
     let bid = new bid_Schema(req.body);  
        
-    bid.bidder = req.session.user;
+    bid.bidder = req.session.userId;
     bid.eventid = req.params.id;
     bid.bidAmount = req.body.bid_amount;
     

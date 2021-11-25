@@ -43,9 +43,10 @@ exports.login = (req, res, next)=>{
             user.comparePassword(password)
             .then(result=>{
                 if(result) {
-                    req.session.user = user._id;
+                    req.session.userId = user._id;
                     req.session.firstName = user.firstName;
                     req.session.userRole = user.role;
+                    req.session.city = user.city;
                     req.flash('success', 'You have successfully logged in');
                     if(user.role === 'Admin' || user.role === 'SuperAdmin')
                         res.redirect('/users/dashboard');
@@ -62,7 +63,7 @@ exports.login = (req, res, next)=>{
 };
 
 exports.profile = (req, res, next)=>{
-    let id = req.session.user;
+    let id = req.session.userId;
     Promise.all([model.findById(id),Event.find({host:id})])
     .then(results=>{
         const[user,events]=results;

@@ -3,7 +3,7 @@ const User = require('../models/user');
 
 //check if a user is a guest
 exports.isGuest = (req,res,next)=>{
-    if(!req.session.user)
+    if(!req.session.userId)
         return next();
     else{
         req.flash('error','You are logged in already!');
@@ -13,7 +13,7 @@ exports.isGuest = (req,res,next)=>{
 
 //check if a user is a authenticated
 exports.isLoggedIn = (req,res,next)=>{
-    if(req.session.user)
+    if(req.session.userId)
         return next();
     else{
         req.flash('error','You need to log in first!');
@@ -27,7 +27,7 @@ exports.isHost = (req,res,next)=>{
     Event.findById(id)
     .then(event=>{
         if(event){
-            if(event.host == req.session.user)
+            if(event.host == req.session.userId)
                 return next();
             else{
                 let err = new Error('Unauthorized to access this resource');
@@ -41,7 +41,7 @@ exports.isHost = (req,res,next)=>{
 
 //check if a user is an admin
 exports.isAdmin = (req,res,next)=>{
-    let id = req.session.user;
+    let id = req.session.userId;
     User.findById(id)
     .then(user=>{
         if(user){

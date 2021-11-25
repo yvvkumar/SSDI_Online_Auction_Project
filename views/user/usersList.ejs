@@ -3,7 +3,7 @@
         <div>
             <h2>User Dashboard</h2>
 
-            <%if(users.length>1){%>
+            <%if((userRole === 'SuperAdmin' && users.length>1)||(userRole !== 'SuperAdmin' && users.length>2)){%>
                 <div class="table">
                     <table class="profile">
                         <tr>
@@ -12,7 +12,7 @@
                             <th>Actions</th>
                         </tr>
                         <%users.forEach(user=>{
-                            if(user.role !== 'SuperAdmin'){%>
+                            if( user._id != userId && user.role !== 'SuperAdmin' ){%>
                             <tr>
                                 <td><%=user.firstName%> <%=user.lastName%></td>
                                 <td><%=user.role%></td>
@@ -38,7 +38,7 @@
                     </table>
                 </div>
             <%}else{%>
-                <p> You currently have no users!</p>
+                <p> You currently have no users to be displayed!</p>
             <%}%>
         </div>
     </main>

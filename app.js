@@ -43,7 +43,7 @@ app.use(
 app.use(flash());
 
 app.use((req, res, next) => {
-    res.locals.user = req.session.user||null;
+    res.locals.userId = req.session.userId||null;
     res.locals.firstName = req.session.firstName||null;
     res.locals.userRole = req.session.userRole||null;
     res.locals.errorMessages = req.flash('error');
