@@ -1,28 +1,7 @@
 <%- include('../partials/header.ejs')%>   
     <main>
        
-      <!--   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
-
-        <script>   
-            amount = $("#baseAmount").val();
-            $(document).ready(function() {          
-                
-            $("#bidding").validate({
-            rules: {
-           
-                bid_amount: {
-                    required: true, 
-                    number: true,                   
-                    min: {
-                        parsetoInt(amount);
-                        }
-                     },
-                }           
-                
-            });
-            });
-        </script> -->
+     
 
         <div class="eventDesc">
             <h3><%= event.title%></h3>
@@ -50,23 +29,20 @@
                     <button class="editBtn" type="submit" formmethod="POST" formaction="/events/<%= event.id%>?_method=DELETE">Delete</button>
                 </form>
             <%}else {%>
-                <form>
-                    
-                    <button class="editBtn" type="text" formmethod="POST" formaction="/events/<%= event.id%>??rsvp=yes">Yes</button>
-                 
-                </form>
+
+                <form id="bidding">
+                    <div class="formElement">
+                        <label for="bid_amount">Bid Amount</label>
+                        <input type="text" id="bid_amount" name="bid_amount" class = "fixed-width" required>
+                    </div>                    
+                    <div >
+                        <button class="submitBtn" type="submit" formmethod="post" formaction="/events/<%= event.id%>/bid" >Save Bid Amount</button>
+                    </div>        
+                </form> 
     
             <%}%>  
 
-            <form id="bidding">
-                <div class="formElement">
-                    <label for="bid_amount">Bid Amount</label>
-                    <input type="text" id="bid_amount" name="bid_amount" class = "fixed-width" required>
-                </div>                    
-                <div >
-                    <button class="submitBtn" type="submit" formmethod="post" formaction="/events/<%= event.id%>/bid" >Save Bid Amount</button>
-                </div>        
-            </form>          
+                    
                 
         </div>
         

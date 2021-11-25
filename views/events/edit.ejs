@@ -32,7 +32,7 @@
                         </div>
                         <div class="formElement">
                             <label for="city">City</label>
-                            <input type="text" id="city" name="city" placeholder="Enter city" required>
+                            <input type="text" id="city" name="city" value = "<%= event.city%>" required>
                         </div>
                         <div class="formElement">
                             <label for="details">Details</label>
@@ -41,6 +41,10 @@
                         <div class="formElement">
                             <label for="imageURL">Image URL</label>
                             <input type="text" id="imageURL" name="imageURL" value = "<%= event.imageURL%>" required>
+                        </div>
+                        <div class="formElement">
+                            <label for="baseAmount">Base Amount</label>
+                            <input type="text" id="baseAmount" name="baseAmount" value = "<%= event.baseAmount%>" required>
                         </div>
                         <div class="formElement">
                             <input class="submitBtn" type="submit" value="Edit Event"/>
