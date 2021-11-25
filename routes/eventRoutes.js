@@ -2,7 +2,7 @@
 const express = require('express');
 const controller = require('../controllers/eventController');
 const {isLoggedIn,isHost} = require('../middlewares/auth');
-const {validateId} = require('../middlewares/validator');
+const {validateId,validateBidAmount} = require('../middlewares/validator');
 
 // create router
 const router = express.Router();
@@ -16,8 +16,8 @@ router.get('/new',isLoggedIn,controller.new);
 //POST /events: create a new event
 router.post('/',isLoggedIn,controller.create);
 
-//POST /events: create a new event
-router.post('/:id/bid',controller.bid);
+//POST /events: save bid amount
+router.post('/:id/bid',validateBidAmount,controller.bid);
 
 //GET /events/:id: send details of event identified by id
 router.get('/:id',validateId,controller.show);

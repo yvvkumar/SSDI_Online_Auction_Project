@@ -31,7 +31,7 @@ exports.isHost = (req,res,next)=>{
                 return next();
             else{
                 let err = new Error('Unauthorized to access this resource');
-                err.status = 401;
+                err.status = 401;                
                 return next(err);
             }
         }
@@ -56,3 +56,5 @@ exports.isAdmin = (req,res,next)=>{
     })
     .catch(err=>next(err));
 }
+
+
