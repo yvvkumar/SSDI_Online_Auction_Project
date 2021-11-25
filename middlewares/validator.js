@@ -1,3 +1,4 @@
+const Event = require('../models/event');
 exports.validateId = (req,res,next)=>{
     let id = req.params.id;
     if(!id.match(/^[0-9a-fA-F]{24}$/)) {
@@ -7,4 +8,19 @@ exports.validateId = (req,res,next)=>{
     }else{
         return next();
     }
+}
+exports.validateBidAmount = (req,res,next)=>{
+    let id = req.params.id;
+    Event.findById(id)
+    .then(event=>{
+        if(event){
+            if(req.body.bid_amount >= event.baseAmount)
+                return next();
+            else{
+                req.flash('success', 'bid amount should be greater than base amount');                
+                res.redirect('/events/'+id);
+            }
+        }
+    })
+    .catch(err=>next(err));
 }
