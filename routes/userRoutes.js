@@ -26,12 +26,12 @@ router.get('/dashboard', isLoggedIn, isAdmin, controller.dashboard);
 router.get('/logout', isLoggedIn, controller.logout);
 
 //POST /users/:id/makeAdmin: makeAdmin
-router.post('/:id/makeAdmin',controller.makeAdmin);
+router.post('/:id/makeAdmin',isLoggedIn, isAdmin,controller.makeAdmin);
 
 //POST /users/:id/removeAdmin: removeAdmin
-router.post('/:id/removeAdmin',controller.removeAdmin);
+router.post('/:id/removeAdmin',isLoggedIn, isAdmin,controller.removeAdmin);
 
-//POST /users/:id/removeUser: removeAdmin
-router.post('/:id/removeUser',controller.removeUser);
+//POST /users/:id/removeUser: removeUser
+router.post('/:id/removeUser',isLoggedIn, isAdmin,controller.removeUser);
 
 module.exports = router;

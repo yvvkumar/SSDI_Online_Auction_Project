@@ -101,28 +101,36 @@ exports.delete = (req,res,next) => {
 };
 exports.bid = (req,res,next) => {
     let bid = new bid_Schema(req.body);  
-    let baseAmt =  model.findById(id).select(baseAmount);    
+    let baseAmt; 
+    model.findById(id)
+    .then(event=>{
+        if(event)
+            baseAmt = event.baseAmt;
+        else{
+            let err = new Error('Cannot find event with id '+ id);
+            err.status = 404;
+            next(err);
+        }
+    })
+    .catch(err => next(err));    
     bid.bidder = req.session.user;
     bid.eventid = req.params.id;
     bid.bidAmount = req.body.bid_amount;
-    if(req.body.bid_amount > baseAmt)
-    {
-    bid.save() 
-    .then(()=>{
-        req.flash('success', 'Bid Amount has been successfully saved');
-        res.redirect('/events');
-    })
-    
-    .catch(err=>{
-        if(err.name==='ValidationError'){
-            req.flash('error', err.message);
-            return res.redirect('back');
-        }
-        next(err);
-    });
+    if(req.body.bid_amount > baseAmt){
+        bid.save() 
+        .then(()=>{
+            req.flash('success', 'Bid Amount has been successfully saved');
+            res.redirect('/events');
+        })
+        .catch(err=>{
+            if(err.name==='ValidationError'){
+                req.flash('error', err.message);
+                return res.redirect('back');
+            }
+            next(err);
+        });
     }
-    else
-    {
+    else{
         req.flash('failed', 'Bid Amount must be greater than Base Amount');
         res.redirect('/events');
     }
