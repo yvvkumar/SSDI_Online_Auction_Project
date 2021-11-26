@@ -1,6 +1,6 @@
 <%- include('../partials/header.ejs')%>
     <main>   
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+         <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
 
         <script>   
@@ -17,7 +17,7 @@
                 }
             });
             });
-        </script>     
+        </script>     -->
         <section>
             
                 <h4>
@@ -64,7 +64,7 @@
                         </div>
                         <div class="formElement">
                             <label for="baseAmount">Base Amount</label>
-                            <input type="text" id="baseAmount" name="baseAmount" placeholder="Enter Base Amount" required>
+                            <input type="text" id="baseAmount" name="baseAmount" placeholder="Enter Base Amount" min=1 required>
                         </div>
                         <div class="formElement">
                             <input class="submitBtn" type="submit" value="Create Event"/>
