@@ -17,7 +17,7 @@ exports.validateBidAmount = (req,res,next)=>{
             if(req.body.bid_amount >= event.baseAmount)
                 return next();
             else{
-                req.flash('success', 'bid amount should be greater than base amount');                
+                req.flash('error', 'bid amount should be greater than base amount');                
                 res.redirect('/events/'+id);
             }
         }
