@@ -62,6 +62,13 @@ exports.show = (req,res,next) => {
     .catch(err=>next(err));
 };
 
+exports.showBids = (req,res,next) => {
+    let id = req.params.id;
+    bid_Schema.find({eventid:id}).populate('bidder','firstName lastName')
+    .then(bids=>{ res.render('./events/bids',{bids})})
+    .catch(err=>next(err));
+};
+
 exports.edit = (req,res,next) => {
     let id = req.params.id;
     model.findById(id)

@@ -1,0 +1,30 @@
+<%- include('../partials/header.ejs')%>
+<main>
+    <div>
+    <%if(bids.length){%>
+    <div class="table">
+        <table class="profile">
+            <tr>
+                <th>Username</th>
+                <th>Bid Amount</th>
+                <th>Actions</th>
+            </tr> 
+        <%bids.forEach(bid=>{%>
+            <tr>
+                <td><%= bid.bidder.firstName + ' ' + bid.bidder.lastName%></td>
+                <td><%= bid.bidAmount%></td>
+                <td>
+                    <form>
+                        <button class="submitBtn" type="submit" formmethod="POST" formaction="/events/<%= bid.id%>/accept">Edit</button>
+                    </form>
+                </td>
+            </tr>
+        <%});%>
+        </table>
+    </div>
+    <%}else{%>
+        <p> You are currently hosting no events!</p>
+    <%}%>
+</div>
+</main>
+<%- include('../partials/footer.ejs')%>

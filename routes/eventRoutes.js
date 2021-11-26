@@ -11,7 +11,7 @@ const router = express.Router();
 router.get('/',controller.index);
 
 //GET /events: send all the events of the loaclity to the user
-router.get('/localEvents',controller.localEvents);
+router.get('/localEvents',isLoggedIn,controller.localEvents);
 
 //GET /events/new: send html form for creating a new event
 router.get('/new',isLoggedIn,controller.new);
@@ -20,10 +20,13 @@ router.get('/new',isLoggedIn,controller.new);
 router.post('/',isLoggedIn,controller.create);
 
 //POST /events: save bid amount
-router.post('/:id/bid',validateBidAmount,controller.bid);
+router.post('/:id/bid',validateId,validateBidAmount,isLoggedIn,controller.bid);
 
 //GET /events/:id: send details of event identified by id
 router.get('/:id',validateId,controller.show);
+
+//GET /events/:id: send details of event identified by id
+router.get('/:id/showBids',validateId,isLoggedIn,isHost,controller.showBids);
 
 //GET /events/:id/edit: send html form for editing an exising event
 router.get('/:id/edit',validateId,isLoggedIn,isHost,controller.edit);
