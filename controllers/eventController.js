@@ -69,6 +69,11 @@ exports.showBids = (req,res,next) => {
     .catch(err=>next(err));
 };
 
+exports.accept = (req,res,next) => {
+    let id = req.params.id;
+    
+}
+
 exports.edit = (req,res,next) => {
     let id = req.params.id;
     model.findById(id)
