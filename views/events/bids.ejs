@@ -7,6 +7,7 @@
             <tr>
                 <th>Username</th>
                 <th>Bid Amount</th>
+                <th>Status</th>
                 <th>Actions</th>
             </tr> 
         <%bids.forEach(bid=>{%>
@@ -14,9 +15,16 @@
                 <td><%= bid.bidder.firstName + ' ' + bid.bidder.lastName%></td>
                 <td><%= bid.bidAmount%></td>
                 <td>
-                    <form>
+                    <% if(bid.status!=='none'){%>
+                        <%= bid.status%>
+                    <%}%>
+                </td>
+                <td>
+                    <%if(eventStatus==='open'){%>
+                        <form>
                         <button class="submitBtn" type="submit" formmethod="POST" formaction="/events/<%= bid.id%>/accept">Edit</button>
-                    </form>
+                        </form>
+                    <%}%>
                 </td>
             </tr>
         <%});%>

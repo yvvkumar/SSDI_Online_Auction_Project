@@ -14,7 +14,7 @@
                         <%users.forEach(user=>{
                             if( user._id != userId && user.role !== 'SuperAdmin' ){%>
                             <tr>
-                                <td><%=user.firstName%> +' '+user.lastName%></td>
+                                <td><%=user.firstName +' '+user.lastName%></td>
                                 <td><%=user.role%></td>
                                 <td>
                                     <%if(userRole === 'SuperAdmin'){

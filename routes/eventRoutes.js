@@ -28,7 +28,7 @@ router.get('/:id',validateId,controller.show);
 //GET /events/:id/showBids: send bids of event identified by id
 router.get('/:id/showBids',validateId,isLoggedIn,isHost,controller.showBids);
 
-//GET /events/:id/accept: accept bid
+//POST /events/:id/accept: accept bid
 router.post('/:id/accept',validateId,isLoggedIn,controller.accept);
 
 //GET /events/:id/edit: send html form for editing an exising event

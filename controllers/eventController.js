@@ -65,13 +65,40 @@ exports.show = (req,res,next) => {
 exports.showBids = (req,res,next) => {
     let id = req.params.id;
     bid_Schema.find({eventid:id}).populate('bidder','firstName lastName')
-    .then(bids=>{ res.render('./events/bids',{bids})})
+    .then(bids=>{ 
+        let eventStatus;
+        model.findById(id)
+        .then(event=>{
+            eventStatus = event.status;
+        })
+        res.render('./events/bids',{bids,eventStatus})})
     .catch(err=>next(err));
 };
 
 exports.accept = (req,res,next) => {
     let id = req.params.id;
-    
+    bid_Schema.findById(id)
+    .then(bid=>{
+        if(bid){
+            bid.status = 'accept';
+            bid.save();
+            model.findById(bid.eventid)
+            .then(event=>{
+                if(event){
+                    event.status='close';
+                    event.save();
+                    req.flash('success', 'Status has been successfully updated!');
+                    res.redirect('/events/'+event.id);
+                }
+                else{
+                    let err = new Error('Cannot find event with id '+ bid.eventid);
+                    err.status = 404;
+                    next(err);
+                }
+            })
+        }
+    })
+    .catch(err=>next(err));
 }
 
 exports.edit = (req,res,next) => {
