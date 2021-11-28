@@ -11,7 +11,7 @@
                     <br>
                     Time: <%= event.startTime%> - <%= event.endTime%>
                     <br>
-                    Location: <%= event.address%>
+                    Address: <%= event.address%>
                     <br>
                     City: <%= event.city%>
                     <br>
@@ -33,7 +33,7 @@
                         <input type="text" id="bid_amount" name="bid_amount" class = "fixed-width" required>
                     </div>                    
                     <div >
-                        <button class="submitBtn" type="submit" formmethod="post" formaction="/events/<%= event.id%>/bid" >Save Bid Amount</button>
+                        <button class="submitBtn" type="submit" formmethod="post" formaction="/events/<%= event.id%>/bid" >Submit</button>
                     </div>        
                 </form> 
             <%}%>         

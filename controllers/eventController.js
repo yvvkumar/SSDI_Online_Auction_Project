@@ -65,13 +65,18 @@ exports.show = (req,res,next) => {
 exports.showBids = (req,res,next) => {
     let id = req.params.id;
     bid_Schema.find({eventid:id}).populate('bidder','firstName lastName')
-    .then(bids=>{ 
-        let eventStatus;
-        model.findById(id)
-        .then(event=>{
-            eventStatus = event.status;
-        })
-        res.render('./events/bids',{bids,eventStatus})})
+    .then(bids=>{
+        if(bids){
+            console.log(bids);
+            bids.sort(function(a, b){return b.bidAmount-a.bidAmount});
+            let eventStatus;
+            model.findById(id)
+            .then(event=>{
+                eventStatus = event.status;
+            })
+            res.render('./events/bids',{bids,eventStatus});
+        }
+    })
     .catch(err=>next(err));
 };
 
