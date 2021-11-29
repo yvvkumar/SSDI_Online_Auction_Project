@@ -21,12 +21,17 @@
                 </p>                
             </div>
             <%if(userId== event.host._id){%>
-                <form>
+                <form>   
+                    <%if(event.status=='close'){%>
+                        <button class="editBtn" type="submit" formmethod="POST" formaction="/events/<%= event.id%>/openBids">Open bids</button>
+                    <%}else{%>
+                        <button class="editBtn" type="submit" formmethod="POST" formaction="/events/<%= event.id%>/closeBids">Close bids</button>
+                    <%}%> 
                     <button class="editBtn" type="submit" formmethod="GET" formaction="/events/<%= event.id%>/showBids">Show bids</button>
                     <button class="editBtn" type="submit" formmethod="GET" formaction="/events/<%= event.id%>/edit">Edit</button>
                     <button class="editBtn" type="submit" formmethod="POST" formaction="/events/<%= event.id%>?_method=DELETE">Delete</button>
                 </form>
-            <%}else if(userId) {%>
+            <%}else if(userId && event.status=='open') {%>
                 <form id="bidding">
                     <div class="formElement">
                         <label for="bid_amount">Bid Amount</label>

@@ -25,6 +25,19 @@ exports.localEvents = (req,res,next) => {
     .catch(err=>next(err));       
 };
 
+exports.myBids = (req,res,next) => {
+    let id= req.session.userId;
+    bid_Schema.find({bidder:id}).populate('eventid','title')
+    .then(bids=>{
+        let result=[];
+        bids.forEach(bid=>{
+            if(bid.status='accept')
+                result.push(bid);
+        })
+        res.render('./events/myBids',{result})
+    })
+    .catch(err=>next(err));       
+};
 
 exports.new = (req,res) => {
     res.render('./events/newEvent');
@@ -76,6 +89,28 @@ exports.showBids = (req,res,next) => {
                 return res.render('./events/bids',{bids,event});
             })
         }
+    })
+    .catch(err=>next(err));
+};
+
+exports.openBids = (req,res,next) => {
+    let id = req.params.id;
+    model.findById(id)
+    .then(event=>{
+        event.status='open';
+        event.save();
+        res.redirect('/events/'+id);
+    })
+    .catch(err=>next(err));
+};
+
+exports.closeBids = (req,res,next) => {
+    let id = req.params.id;
+    model.findById(id)
+    .then(event=>{
+        event.status='close';
+        event.save();
+        res.redirect('/events/'+id);
     })
     .catch(err=>next(err));
 };

@@ -1,0 +1,25 @@
+<%- include('../partials/header.ejs')%>
+<main>
+    <div>
+    <h2>Bids won</h2> 
+    <%if(result.length){%>
+    <div class="table">
+        <table class="profile">
+            <tr>
+                <th>Event</th>
+                <th>Bid Amount</th>
+            </tr> 
+        <%result.forEach(bid=>{%>
+            <tr>
+                <td><%= bid.eventid.title%></td>
+                <td><%= bid.bidAmount%></td>
+            </tr>
+        <%});%>
+        </table>
+    </div>
+    <%}else{%>
+        <p> There are currently no bids won by you!</p>
+    <%}%>
+</div>
+</main>
+<%- include('../partials/footer.ejs')%>
