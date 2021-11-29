@@ -94,11 +94,19 @@ exports.showBids = (req,res,next) => {
 
 exports.openBids = (req,res,next) => {
     let id = req.params.id;
-    model.findById(id)
-    .then(event=>{
-        event.status='open';
-        event.save();
-        res.redirect('/events/'+id);
+    bid_Schema.find({eventid:id,status:'accept'})
+    .then(bids=>{
+        if(!bids){
+            model.findById(id)
+            .then(event=>{
+                event.status='open';
+                event.save();
+                res.redirect('/events/'+id);
+            })
+        }else{
+            req.flash('error', 'Event cannot be opened since result is already declared!');
+            res.redirect('/events/'+id);
+        }
     })
     .catch(err=>next(err));
 };
