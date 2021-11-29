@@ -1,6 +1,7 @@
 const express = require('express');
 const controller = require('../controllers/userController');
 const {isGuest, isLoggedIn,isAdmin} = require('../middlewares/auth');
+const {validateId} = require('../middlewares/validator'); 
 
 const router = express.Router();
 
@@ -32,12 +33,12 @@ router.get('/dashboard', isLoggedIn, isAdmin, controller.dashboard);
 router.get('/logout', isLoggedIn, controller.logout);
 
 //POST /users/:id/makeAdmin: makeAdmin
-router.post('/:id/makeAdmin',isLoggedIn, isAdmin,controller.makeAdmin);
+router.post('/:id/makeAdmin',validateId,isLoggedIn, isAdmin,controller.makeAdmin);
 
 //POST /users/:id/removeAdmin: removeAdmin
-router.post('/:id/removeAdmin',isLoggedIn, isAdmin,controller.removeAdmin);
+router.post('/:id/removeAdmin',validateId,isLoggedIn, isAdmin,controller.removeAdmin);
 
 //POST /users/:id/removeUser: removeUser
-router.post('/:id/removeUser',isLoggedIn, isAdmin,controller.removeUser);
+router.post('/:id/removeUser',validateId,isLoggedIn, isAdmin,controller.removeUser);
 
 module.exports = router;

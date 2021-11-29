@@ -86,11 +86,11 @@ exports.accept = (req,res,next) => {
     .then(bid=>{
         if(bid){
             bid.status = 'accept';
-            bid.save();
             model.findById(bid.eventid)
             .then(event=>{
                 if(event){
                     event.status='close';
+                    bid.save();
                     event.save();
                     req.flash('success', 'Status has been successfully updated!');
                     res.redirect('/events/'+event.id);
