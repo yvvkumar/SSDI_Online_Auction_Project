@@ -1,5 +1,6 @@
 const model = require('../models/user');
 const Event = require('../models/event');
+const Bid = require('../models/bid');
 
 exports.new = (req, res)=>{
     return res.render('./user/new');
@@ -160,16 +161,22 @@ exports.logout = (req, res, next)=>{
 
  exports.removeUser = (req,res,next)=>{
     let id = req.params.id;
+    Bid.findByIdAndDelete({bidder:id},{useFindAndModify: false})
+    .then()
+    .catch(err=>next(err));
+    Event.model.findByIdAndDelete(id,{useFindAndModify: false})
+    .then()
+    .catch(err=>next(err));
     model.findByIdAndDelete(id,{useFindAndModify: false})
     .then(user=>{
-        if(user){
-            req.flash('success', 'User has been successfully removed!');
-            res.redirect('/users/dashboard');
-        }else{
-            let err = new Error('Cannot find user with id '+ id);
-            err.status = 404;
-            next(err);
-        }
-    })
+                    if(user){
+                        req.flash('success', 'User has been successfully removed!');
+                        res.redirect('/users/dashboard');
+                    }else{
+                        let err = new Error('Cannot find user with id '+ id);
+                        err.status = 404;
+                        next(err);
+                    }
+                })
     .catch(err => next(err));
  };

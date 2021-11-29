@@ -24,3 +24,13 @@ exports.validateBidAmount = (req,res,next)=>{
     })
     .catch(err=>next(err));
 }
+exports.validateBaseAmount = (req,res,next)=>{
+    let event = req.body;
+    if(event.baseAmount>0)
+        return next();
+    else{
+        req.flash('error', 'Base amount should be greater than zero');                
+        res.redirect('back');
+    }
+}
+    

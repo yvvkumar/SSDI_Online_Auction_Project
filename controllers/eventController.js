@@ -33,6 +33,7 @@ exports.new = (req,res) => {
 exports.create = (req,res,next) => {
     let event = new model(req.body);
     event.host = req.session.userId;
+    event.status='open';
     event.save() 
     .then(()=>{
         req.flash('success', 'Event has been successfully created!');
@@ -72,9 +73,8 @@ exports.showBids = (req,res,next) => {
             let eventStatus;
             model.findById(id)
             .then(event=>{
-                eventStatus = event.status;
+                return res.render('./events/bids',{bids,event});
             })
-            res.render('./events/bids',{bids,eventStatus});
         }
     })
     .catch(err=>next(err));

@@ -25,7 +25,7 @@ router.post('/login', isGuest, controller.login);
 //GET /users/profile: send user's profile page
 router.get('/profile', isLoggedIn, controller.profile);
 
-//GET /users/profile: send user's profile page
+//GET /users/dashboard: send user's dashboard page
 router.get('/dashboard', isLoggedIn, isAdmin, controller.dashboard);
 
 //POST /users/logout: logout a user

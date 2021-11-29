@@ -2,7 +2,7 @@
 const express = require('express');
 const controller = require('../controllers/eventController');
 const {isLoggedIn,isHost} = require('../middlewares/auth');
-const {validateId,validateBidAmount} = require('../middlewares/validator');
+const {validateId,validateBidAmount,validateBaseAmount} = require('../middlewares/validator');
 
 // create router
 const router = express.Router();
@@ -17,7 +17,7 @@ router.get('/localEvents',isLoggedIn,controller.localEvents);
 router.get('/new',isLoggedIn,controller.new);
 
 //POST /events: create a new event
-router.post('/',isLoggedIn,controller.create);
+router.post('/',isLoggedIn,validateBaseAmount,controller.create);
 
 //POST /events/:id/bid: save bid amount
 router.post('/:id/bid',validateId,validateBidAmount,isLoggedIn,controller.bid);
@@ -35,7 +35,7 @@ router.post('/:id/accept',validateId,isLoggedIn,controller.accept);
 router.get('/:id/edit',validateId,isLoggedIn,isHost,controller.edit);
 
 //PUT /events/:id: update event identified by id
-router.put('/:id',validateId,isLoggedIn,isHost,controller.update);
+router.put('/:id',validateId,isLoggedIn,isHost,validateBaseAmount,controller.update);
 
 //DELETE /events/:id: delete event identified by id
 router.delete('/:id',validateId,isLoggedIn,isHost,controller.delete);

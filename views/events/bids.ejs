@@ -20,7 +20,7 @@
                     <%}%>
                 </td>
                 <td>
-                    <%if(eventStatus==='open'){%>
+                    <%if(event.status=='open'){%>
                         <form>
                         <button class="submitBtn" type="submit" formmethod="POST" formaction="/events/<%= bid.id%>/accept">Edit</button>
                         </form>
@@ -31,7 +31,7 @@
         </table>
     </div>
     <%}else{%>
-        <p> You are currently hosting no events!</p>
+        <p> There are currently no bids!</p>
     <%}%>
 </div>
 </main>
