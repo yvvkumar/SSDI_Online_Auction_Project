@@ -161,22 +161,40 @@ exports.logout = (req, res, next)=>{
 
  exports.removeUser = (req,res,next)=>{
     let id = req.params.id;
-    Bid.findByIdAndDelete({bidder:id},{useFindAndModify: false})
-    .then()
-    .catch(err=>next(err));
-    Event.model.findByIdAndDelete(id,{useFindAndModify: false})
-    .then()
-    .catch(err=>next(err));
-    model.findByIdAndDelete(id,{useFindAndModify: false})
-    .then(user=>{
-                    if(user){
-                        req.flash('success', 'User has been successfully removed!');
-                        res.redirect('/users/dashboard');
-                    }else{
-                        let err = new Error('Cannot find user with id '+ id);
-                        err.status = 404;
-                        next(err);
-                    }
-                })
+    console.log(id);
+    Promise.resolve()
+    .then(()=>{
+        Bid.find({bidder:id})
+        .then(bids=>{
+            if(bids)
+                bids.forEach(bid=>{
+                    Bid.findByIdAndDelete(bid.id,{useFindAndModify: false})
+                    .catch(err=>next(err));
+                });
+        })
+    })
+    .then(()=>{
+        Event.find({host:id})
+        .then(events=>{
+            if(events)
+                events.forEach(event=>{
+                    Event.findByIdAndDelete(event.id,{useFindAndModify: false})
+                    .catch(err=>next(err));
+                });
+        })
+    })
+    .then(()=>{
+        model.findByIdAndDelete(id,{useFindAndModify: false})
+        .then(user=>{
+            if(!user){
+                let err = new Error('Cannot find user with id '+ id);
+                err.status = 404;
+                next(err);
+            }
+        })
+        .catch(err=>next(err));
+    })
     .catch(err => next(err));
+    req.flash('success', 'User has been successfully removed!');
+    res.redirect('/users/dashboard');
  };
