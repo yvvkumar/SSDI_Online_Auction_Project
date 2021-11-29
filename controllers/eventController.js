@@ -96,7 +96,7 @@ exports.openBids = (req,res,next) => {
     let id = req.params.id;
     bid_Schema.find({eventid:id,status:'accept'})
     .then(bids=>{
-        if(!bids){
+        if(bids.length === 0){
             model.findById(id)
             .then(event=>{
                 event.status='open';
