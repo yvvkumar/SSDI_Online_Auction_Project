@@ -27,6 +27,37 @@ exports.create = (req, res, next)=>{
     });
 };
 
+exports.edit = (req,res,next) => {
+    let id = req.session.userId;
+    model.findById(id)
+    .then(user=>{
+        if(user){
+            res.render('./user/edit',{user});
+        }
+    })
+    .catch(err=>next(err));
+};
+
+exports.update = (req,res,next) => {
+    let user = req.body;
+    let id = req.session.userId;
+    model.findByIdAndUpdate(id,user,{useFindAndModify: false, runValidators: true})
+    .then(oldUser=>{
+        if(oldUser){
+            req.session.firstName = user.firstName;
+            req.flash('success', 'User profile has been successfully updated!');
+            res.redirect('/users/dashboard');
+        }
+    })
+    .catch(err=>{
+        if(err.name==='ValidationError'){
+            req.flash('error', err.message);
+            return res.redirect('back');
+        }
+        next(err)
+    });
+};
+
 exports.getUserLogin = (req, res, next) => {
      res.render('./user/login');
 }

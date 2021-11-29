@@ -10,6 +10,12 @@ router.get('/new', isGuest, controller.new);
 //POST /users: create a new user account
 router.post('/', isGuest, controller.create);
 
+//GET /users/edit: send html form for editing user account
+router.get('/edit', isLoggedIn, controller.edit);
+
+//PUT /users: update event identified by id
+router.put('/',isLoggedIn,controller.update);
+
 //GET /users/login: send html for logging in
 router.get('/login', isGuest, controller.getUserLogin);
 
