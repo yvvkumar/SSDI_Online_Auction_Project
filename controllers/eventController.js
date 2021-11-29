@@ -81,7 +81,6 @@ exports.showBids = (req,res,next) => {
     bid_Schema.find({eventid:id}).populate('bidder','firstName lastName')
     .then(bids=>{
         if(bids){
-            console.log(bids);
             bids.sort(function(a, b){return b.bidAmount-a.bidAmount});
             let eventStatus;
             model.findById(id)

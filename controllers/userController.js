@@ -161,7 +161,6 @@ exports.logout = (req, res, next)=>{
 
  exports.removeUser = (req,res,next)=>{
     let id = req.params.id;
-    console.log(id);
     Promise.resolve()
     .then(()=>{
         Bid.find({bidder:id})
