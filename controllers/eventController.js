@@ -1,7 +1,7 @@
 //import
 const model = require('../models/event');
 const bid_Schema = require('../models/bid');
-
+const report_Schema = require('../models/report');
 
 // controller functions
 exports.index = (req,res,next) => {
@@ -46,7 +46,7 @@ exports.new = (req,res) => {
 exports.create = (req,res,next) => {
     let event = new model(req.body);
     event.host = req.session.userId;
-    event.status='open';
+    event.status='close';
     event.save() 
     .then(()=>{
         req.flash('success', 'Event has been successfully created!');
@@ -188,18 +188,41 @@ exports.update = (req,res,next) => {
 
 exports.delete = (req,res,next) => {
     let id = req.params.id;
-    model.findByIdAndDelete(id,{useFindAndModify: false})
-    .then(event=>{
-        if(event){
-            req.flash('success', 'Event has been successfully deleted!');
-            res.redirect('/events');
-        }else{
-            let err = new Error('Cannot find event with id '+ id);
-            err.status = 404;
-            next(err);
-        }
+    let results = true;
+    Promise.resolve()
+    .then(()=>{
+        report_Schema.deleteMany({eventid:id})
+        .then(result=>{
+            if(!result)
+                results=false;
+        })
+        .catch(err=>next(err));
     })
-    .catch(err => next(err));
+    .then(()=>{
+        bid_Schema.deleteMany({eventid:id})
+        .then(result=>{
+            if(!result)
+                results=false;
+        })
+        .catch(err=>next(err));
+    })
+    .then(()=>{
+        model.findByIdAndDelete(id,{useFindAndModify: false})
+        .then(result=>{
+            if(!result)
+                results=false;
+        })
+        .catch(err=>next(err));
+    })
+    .catch(err=>next(err));
+    if(results){
+        req.flash('success', 'Event has been successfully deleted!');
+        res.redirect('/events');
+    }else{
+        let err = new Error('Cannot find event with id '+ id);
+        err.status = 404;
+        next(err);
+    }
 };
 exports.bid = (req,res,next) => {
     let bid = new bid_Schema(req.body);  
@@ -221,5 +244,40 @@ exports.bid = (req,res,next) => {
             next(err);
         });    
        
+};
+
+exports.report = (req,res,next) =>{
+    let report = new report_Schema(req.body);  
+    let id = req.params.id;
+    report.reportedby = req.session.userId;
+    report.eventid = id;
+    report.reportmessage = req.body.report_msg;
+    report.isReported = 'yes'
+    report.save() 
+    .then(result=>{
+        console.log(result);
+        if(result){
+            req.flash('success', 'Successfully event reported');
+            res.redirect('/events/'+id);
+        }
+    })
+    .catch(err => next(err));
+};
+
+
+exports.reportIgnore = (req,res,next) =>{
+    let id = req.params.id;
+    report_Schema.findByIdAndDelete(id)
+    .then(report=>{
+        if(report){          
+            req.flash('success', 'Event has been successfully ignored!');
+            res.redirect('/users/dashboard');
+        }else{
+            let err = new Error('Cannot find report with id '+ id);
+            err.status = 404;
+            next(err);
+        }
+    })
+    .catch(err => next(err));
 };
 

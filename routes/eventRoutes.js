@@ -49,5 +49,11 @@ router.put('/:id',validateId,isLoggedIn,isHost,validateBaseAmount,controller.upd
 //DELETE /events/:id: delete event identified by id
 router.delete('/:id',validateId,isLoggedIn,isHost,controller.delete);
 
+//POST /events/:id/report: report
+router.post('/:id/report',validateId,isLoggedIn,controller.report);
+
+//POST /events/:id/reportIgnore: delete report identified by id
+router.post('/:id/reportIgnore',validateId,isLoggedIn,controller.reportIgnore);
+
 // export 
 module.exports = router;

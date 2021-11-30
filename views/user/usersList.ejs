@@ -41,5 +41,37 @@
                 <p> You currently have no users to be displayed!</p>
             <%}%>
         </div>
+
+        <div>
+            <h2>User Reports</h2>
+            <%if(reports){%>
+                <div class="table">
+                    <table class="profile">
+                        <tr>
+                            <th>Event</th>
+                            <th>Reported by</th>
+                            <th>Report Message</th>
+                            <th>Actions</th>
+                        </tr>
+                        <%reports.forEach(report=>{%>
+                            <tr>
+                                <td><a href = '/events/<%=report.eventid%>'><%=report.eventid.title%></a></td>
+                                <td><%=report.reportedby.firstName+' '+report.reportedby.lastName%></td>
+                                <td><%=report.reportmessage%></td> 
+                                <td>
+                                    <form>
+                                        <button class="submitBtn" type="submit" formmethod="post" formaction="/events/<%= report.id%>/reportIgnore">Ignore</button>
+                                        <button class="submitBtn" type="submit" formmethod="POST" formaction="/events/<%= report.eventid%>?_method=DELETE">Delete event</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <%});%>
+                    </table>
+                </div>
+            <%}else{%>
+                <p> You currently have no reports to be displayed!</p>
+            <%}%>
+        </div>
+
     </main>
 <%- include('../partials/footer.ejs')%>
