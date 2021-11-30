@@ -1,7 +1,7 @@
 // require modules
 const express = require('express');
 const controller = require('../controllers/eventController');
-const {isLoggedIn,isHost} = require('../middlewares/auth');
+const {isLoggedIn,isHost,isAdmin} = require('../middlewares/auth');
 const {validateId,validateBidAmount,validateBaseAmount} = require('../middlewares/validator');
 
 // create router
@@ -49,11 +49,14 @@ router.put('/:id',validateId,isLoggedIn,isHost,validateBaseAmount,controller.upd
 //DELETE /events/:id: delete event identified by id
 router.delete('/:id',validateId,isLoggedIn,isHost,controller.delete);
 
+//POST /events/:id/removeEvent: delete event identified by id
+router.post('/:id/removeEvent',validateId,isLoggedIn,isAdmin,controller.removeEvent);
+
 //POST /events/:id/report: report
 router.post('/:id/report',validateId,isLoggedIn,controller.report);
 
 //POST /events/:id/reportIgnore: delete report identified by id
-router.post('/:id/reportIgnore',validateId,isLoggedIn,controller.reportIgnore);
+router.post('/:id/reportIgnore',validateId,isLoggedIn,isAdmin,controller.reportIgnore);
 
 // export 
 module.exports = router;

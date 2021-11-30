@@ -35,16 +35,16 @@
                 <form id="bidding">
                     <div class="formElement">
                         <label for="bid_amount">Bid Amount</label>
-                        <input type="text" id="bid_amount" name="bid_amount" class = "fixed-width" required>
-                    </div>                    
-                    <div >
+                        <input type="text" id="bid_amount" name="bid_amount" class = "fixed-width" placeholder="Enter bid amount" required>
                         <button class="submitBtn" type="submit" formmethod="post" formaction="/events/<%= event.id%>/bid" >Submit</button>
                     </div> 
-                </form> 
+                </form>
+                <br> 
                 <form>
-                    <div>   
-                        <button class="submitBtn" type="submit" formmethod="post" formaction="/events/<%= event.id%>/report" >Report</button>
+                    <div>
+                        <label for="report_msg">Comment</label>   
                         <input type="text" id="report_msg" name="report_msg" class="fixed-width" placeholder="Why are you reporting this event?" >
+                        <button class="submitBtn" type="submit" formmethod="post" formaction="/events/<%= event.id%>/report" >Report</button>
                     </div>
                 </form>
             <%}%>

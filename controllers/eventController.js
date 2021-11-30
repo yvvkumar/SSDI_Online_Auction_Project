@@ -186,6 +186,45 @@ exports.update = (req,res,next) => {
     });
 };
 
+exports.removeEvent = (req,res,next) => {
+    let id = req.params.id;
+    let results = true;
+    Promise.resolve()
+    .then(()=>{
+        report_Schema.deleteMany({eventid:id})
+        .then(result=>{
+            if(!result)
+                results=false;
+        })
+        .catch(err=>next(err));
+    })
+    .then(()=>{
+        bid_Schema.deleteMany({eventid:id})
+        .then(result=>{
+            if(!result)
+                results=false;
+        })
+        .catch(err=>next(err));
+    })
+    .then(()=>{
+        model.findByIdAndDelete(id,{useFindAndModify: false})
+        .then(result=>{
+            if(!result)
+                results=false;
+        })
+        .catch(err=>next(err));
+    })
+    .catch(err=>next(err));
+    if(results){
+        req.flash('success', 'Event has been successfully deleted!');
+        res.redirect('back');
+    }else{
+        let err = new Error('Cannot find event with id '+ id);
+        err.status = 404;
+        next(err);
+    }
+}
+
 exports.delete = (req,res,next) => {
     let id = req.params.id;
     let results = true;
@@ -255,7 +294,6 @@ exports.report = (req,res,next) =>{
     report.isReported = 'yes'
     report.save() 
     .then(result=>{
-        console.log(result);
         if(result){
             req.flash('success', 'Successfully event reported');
             res.redirect('/events/'+id);

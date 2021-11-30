@@ -109,7 +109,6 @@ exports.dashboard = (req, res, next)=>{
     Promise.all([model.find(),report_Schema.find().populate('reportedby', 'firstName lastName').populate('eventid', 'title')])
     .then(results=>{
         const[users,reports]=results;
-        console.log(reports);
         res.render('./user/usersList', {users,reports})
     })
     .catch(err=>next(err));
@@ -167,6 +166,13 @@ exports.logout = (req, res, next)=>{
  exports.removeUser = (req,res,next)=>{
     let id = req.params.id;
     Promise.resolve()
+    .then(()=>{
+        report_Schema.deleteMany({reportedby:id})
+        .then(()=>{
+
+        })
+        .catch(err=>next(err));
+    })
     .then(()=>{
         Bid.find({bidder:id})
         .then(bids=>{
