@@ -48,7 +48,7 @@ exports.update = (req,res,next) => {
         if(oldUser){
             req.session.firstName = user.firstName;
             req.flash('success', 'User profile has been successfully updated!');
-            res.redirect('/users/dashboard');
+            res.redirect('users/profile');
         }
     })
     .catch(err=>{
