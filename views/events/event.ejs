@@ -31,7 +31,7 @@
                     <button class="editBtn" type="submit" formmethod="GET" formaction="/events/<%= event.id%>/edit">Edit</button>
                     <button class="editBtn" type="submit" formmethod="POST" formaction="/events/<%= event.id%>?_method=DELETE">Delete</button>
                 </form>
-            <%}else if(userId && event.status=='open') {%>
+            <%}else if(userId && event.status=='open') {%> 
                 <form id="bidding">
                     <div class="formElement">
                         <label for="bid_amount">Bid Amount</label>
@@ -39,9 +39,15 @@
                     </div>                    
                     <div >
                         <button class="submitBtn" type="submit" formmethod="post" formaction="/events/<%= event.id%>/bid" >Submit</button>
-                    </div>        
+                    </div> 
                 </form> 
-            <%}%>         
+                <form>
+                    <div>   
+                        <button class="submitBtn" type="submit" formmethod="post" formaction="/events/<%= event.id%>/report" >Report</button>
+                        <input type="text" id="report_msg" name="report_msg" class="fixed-width" placeholder="Why are you reporting this event?" >
+                    </div>
+                </form>
+            <%}%>
         </div>
     </main>
 <%- include('../partials/footer.ejs')%>

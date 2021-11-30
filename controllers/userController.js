@@ -1,6 +1,7 @@
 const model = require('../models/user');
 const Event = require('../models/event');
 const Bid = require('../models/bid');
+const report_Schema = require('../models/report');
 
 exports.new = (req, res)=>{
     return res.render('./user/new');
@@ -105,8 +106,12 @@ exports.profile = (req, res, next)=>{
 };
 
 exports.dashboard = (req, res, next)=>{
-    model.find()
-    .then(users=>res.render('./user/usersList', {users}))
+    Promise.all([model.find(),report_Schema.find().populate('reportedby', 'firstName lastName').populate('eventid', 'title')])
+    .then(results=>{
+        const[users,reports]=results;
+        console.log(reports);
+        res.render('./user/usersList', {users,reports})
+    })
     .catch(err=>next(err));
 };
 
