@@ -29,12 +29,14 @@ exports.myBids = (req,res,next) => {
     let id= req.session.userId;
     bid_Schema.find({bidder:id}).populate('eventid','title')
     .then(bids=>{
+        console.log(bids);
         let result=[];
         bids.forEach(bid=>{
-            if(bid.status='accept')
+            if(bid.status==='accept')
                 result.push(bid);
         })
-        res.render('./events/myBids',{result})
+        console.log(result);
+        res.render('./events/myBids',{result});
     })
     .catch(err=>next(err));       
 };
@@ -153,7 +155,14 @@ exports.edit = (req,res,next) => {
     model.findById(id)
     .then(event=>{
         if(event){
-            res.render('./events/edit',{event});
+            let baseEnable = true;
+            bid_Schema.find({eventid:id})
+            .then(bids=>{
+                if(bids.length>0)
+                    baseEnable=false;
+                res.render('./events/edit',{event,baseEnable});
+            })
+            .catch(err=>next(err));
         }else{
             let err = new Error('Cannot find event with id '+ id);
             err.status = 404;

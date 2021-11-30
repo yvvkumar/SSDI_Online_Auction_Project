@@ -42,10 +42,12 @@
                             <label for="imageURL">Image URL</label>
                             <input type="text" id="imageURL" name="imageURL" value = "<%= event.imageURL%>" required>
                         </div>
+                        <%if(baseEnable){%>
                         <div class="formElement">
                             <label for="baseAmount">Base Amount</label>
                             <input type="text" id="baseAmount" name="baseAmount" value = "<%= event.baseAmount%>" required>
                         </div>
+                        <%}%>
                         <div class="formElement">
                             <input class="submitBtn" type="submit" value="Edit Event"/>
                         </div>
